@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Random Number Generator</title>
+	</head>
+	<body>
+		<p id="output"></p>
+		<input id 	="commandLineInput" type="text">
+		<script type="text/javascript">
+			var number = 0;
+			var total = 0;
+			var headerOne = document.getElementById("output");
+			var inputField = document.getElementById("commandLineInput");
+
+			function getNums(num, amount){
+				for(var i = 0; i < amount-1; i ++){
+					setTimeout(function(){
+						var RandomNum = Math.floor(Math.random() * 10);
+						var iterations = 1;
+						output.innerHTML += RandomNum;
+						while(RandomNum != num){
+							RandomNum = Math.floor(Math.random() * 10);
+							if(RandomNum === num){
+								output.innerHTML += " ";
+							}
+							output.innerHTML += RandomNum;
+							window.scrollTo(0,document.body.scrollHeight);
+							iterations ++;
+						}
+						output.innerHTML += " "+iterations;
+						output.innerHTML += "<br>";
+						console.log("Number of iterations for 5 at position "+(i+1)+": "+iterations);
+						total += iterations;
+					},100 * i);
+				}
+				console.log("called");
+			}
+
+			function getInput(){
+				var inputValue = inputField.value;
+
+				window[inputValue](5,100);
+				// output.innerHTML += "<br>";
+				// output.innerHTML += inputField.value;
+				// window.scrollTo(0,document.body.scrollHeight);
+				//output.innerHTML += "<br>";
+				console.log(window[inputValue]);
+				inputField.value = "";
+			}
+
+			document.addEventListener('keydown', function(evt) {
+				if(evt.keyCode === 13){	
+					getInput();
+				}
+			});
+			//console.log("Total: "+total);
+
+			commandLineInput.select();
+		</script>
+		<style type="text/css">
+			html {
+				background-color: black;
+				line-height: 16px;
+			}
+			#output {
+				font-family: 'courier';
+				color: #00FF00;
+			}
+			#commandLineInput {
+				background-color: transparent;
+				border: 0px solid white;
+				width: 100%; 
+				height: 20px; 
+				color: #00FF00; 
+				font-family: 'courier';
+				font-size: 15px;
+				outline: none;
+			}
+		</style>
+	</body>
+</html>
