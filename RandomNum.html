@@ -13,6 +13,9 @@
 			var inputField = document.getElementById("commandLineInput");
 
 			function getNums(num, amount){
+				output.innerHTML += "<br>";
+				output.innerHTML += "<== Function called: getNums -- Number "+num+": "+amount+" times ==>";
+				output.innerHTML += "<br>";
 				for(var i = 0; i < amount-1; i ++){
 					setTimeout(function(){
 						var RandomNum = Math.floor(Math.random() * 10);
@@ -39,7 +42,39 @@
 			function getInput(){
 				var inputValue = inputField.value;
 
-				window[inputValue](5,100);
+				if(inputValue[0] === "/"){
+					var inBrackets = false;
+					var funcName = "";
+					var varNum = 0;
+					var vars = [];
+					for(var i = 1; i < inputValue.length; i++){
+						if(inputValue[i] === "("){
+							inBrackets = true;
+							continue;
+						}else if(inputValue[i] === ")"){
+							inBrackets = false;
+							continue;
+						}
+						if(inBrackets){
+							if(inputValue[i] === ","){
+								varNum ++;
+								continue;
+							}
+							if(vars[varNum] === undefined){
+								vars[varNum] = inputValue[i];
+							}else{
+								vars[varNum] += inputValue[i];
+							}
+							console.log(inputValue[i]);
+						}else{
+							funcName += inputValue[i];
+						}
+						//console.log(inputValue[i]);
+					}
+					console.log(vars[0],vars[1]);
+					window[funcName](vars[0],vars[1]);
+				}
+
 				// output.innerHTML += "<br>";
 				// output.innerHTML += inputField.value;
 				// window.scrollTo(0,document.body.scrollHeight);
